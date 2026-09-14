@@ -1,18 +1,24 @@
 from datetime import datetime
 import os
 
-def generate_log(log_data):
+def generate_log(log_data, output_dir=None):
     if not isinstance(log_data, list):
         raise ValueError("log_data must be a list")
     
     filename = f"log_{datetime.now().strftime('%Y%m%d')}.txt"
     
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+        filepath = os.path.join(output_dir, filename)
+    else:
+        filepath = filename
+        
     content = "\n".join(str(item) for item in log_data)
-    with open(filename, "w", encoding="utf-8") as f:
+    with open(filepath, "w", encoding="utf-8") as f:
         f.write(content)
         
-    print(f"Log written to {filename}")
-    return filename
+    print(f"Log written to {filepath}")
+    return filepath
 
 if __name__ == "__main__":
     sample_data = ["User logged in", "User updated profile", "Report exported"]
