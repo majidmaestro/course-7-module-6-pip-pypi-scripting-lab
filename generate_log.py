@@ -1,6 +1,8 @@
 from datetime import datetime
 
-def generate_log(log_data):
+def generate_log(log_data=None):
+    if log_data is None:
+        log_data = []
     if not isinstance(log_data, list):
         raise ValueError("Input must be a list.")
     
